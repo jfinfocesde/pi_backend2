@@ -1,0 +1,16 @@
+Reglas
+1- Ingles
+2- Entidades En plural 
+3- Atributos en singular
+4- Utilizar camelCase
+5- Atributo y clasificación, ejemplo userId,  creadtAt
+6- Nombre de controladores y servicios  Verbo o metodo y luego la referencia al objeto Ejemplo getAllUser, uptateUser
+7- Organizacion entidad y el DTO    
+8- Orden en el proyecto
+9- Documentación (Word Compartido, se genera bloques-Diagrama entidad relación)
+10- Distribución de tareas - 18/08/2025
+11- Swagger
+Manejo de Entidades y DTO+
+
+
+
