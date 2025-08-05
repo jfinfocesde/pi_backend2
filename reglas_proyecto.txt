@@ -10,7 +10,11 @@ Reglas
 9- Documentación (Word Compartido, se genera bloques-Diagrama entidad relación)
 10- Distribución de tareas - 18/08/2025
 11- Swagger
-Manejo de Entidades y DTO+
+
+NOTA: Recuerden que para agregar una nueva clase lo hacen desde 
+JAVA PROJECTS > + 'sobre la carpeta que vayas a añadir la clase' > Package > 'Nombre de carpeta con relación al Endpoint' > + > class > nameClass  
 
 
 
+Muchachos: No supongan, pregunten que entre todos nos ayudamos.
+Mucho animo con el proyecto
