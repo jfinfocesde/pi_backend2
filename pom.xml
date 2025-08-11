@@ -79,8 +79,20 @@
         </dependency>
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-        </dependency>     
+            <artifactId>mssql-jdbc</artifactId>            
+        </dependency> 
+       
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version> <!-- o la última estable -->
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
