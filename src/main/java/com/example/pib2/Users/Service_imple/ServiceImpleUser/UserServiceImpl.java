@@ -1,12 +1,17 @@
 package com.example.pib2.Users.Service_imple.ServiceImpleUser;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.pib2.Users.model.Entity.Credentials.Credenciales;
 import com.example.pib2.Users.model.Entity.TypeClient.TipoClientes;
 import com.example.pib2.Users.model.Entity.TypeDocument.TipoDocumento;
 import com.example.pib2.Users.model.Entity.User.Clientes;
@@ -26,13 +31,14 @@ public class UserServiceImpl implements UserService {
     private final TypeDocumentRepository typeDocumentRepository;
 
     public UserServiceImpl(UserRepository userRepository,
-                           TypeClienteRepository typeClienteRepository,
-                           TypeDocumentRepository typeDocumentRepository) {
+            TypeClienteRepository typeClienteRepository,
+            TypeDocumentRepository typeDocumentRepository) {
         this.userRepository = userRepository;
         this.typeClienteRepository = typeClienteRepository;
         this.typeDocumentRepository = typeDocumentRepository;
     }
 //Metodo Get para obtener toda la información del usuario
+
     @Override
     public List<ClientsDTO> getAllClients() {
         return userRepository.findAll()
@@ -57,17 +63,18 @@ public class UserServiceImpl implements UserService {
                 .build()).collect(Collectors.toList());
     }
 //Metodo para insertar la información de un usuario
+
     @Override
     public Clientes createNewClient(ClientsInsertDTO clienteInsert) {
 
         Optional<TipoClientes> tipoClienteOptional = typeClienteRepository.findById(clienteInsert.getIdTipoCliente());
         Optional<TipoDocumento> tipoDocumentoOptional = typeDocumentRepository.findById(clienteInsert.getIdTipoDocumento());
-        
+
         // Si alguna de las entidades no se encuentra, retornamos null.
         if (tipoClienteOptional.isEmpty() || tipoDocumentoOptional.isEmpty()) {
             return null;
         }
-        
+
         // Obtener los objetos de los Optional si están presentes.
         TipoClientes tipoCliente = tipoClienteOptional.get();
         TipoDocumento tipoDocumento = tipoDocumentoOptional.get();
@@ -80,6 +87,16 @@ public class UserServiceImpl implements UserService {
         cliente.setActivo(clienteInsert.getActivo());
         cliente.setTipoCliente(tipoCliente);
         cliente.setTipoDocumento(tipoDocumento);
+
+        //Crear credenciales
+        Credenciales credenciales = new Credenciales();
+        credenciales.setEmail(clienteInsert.getEmail());
+        credenciales.setContrasena(new BCryptPasswordEncoder().encode(clienteInsert.getContraseña()));
+        credenciales.setFechaCreacion(LocalDateTime.now());
+
+        credenciales.setCliente(cliente);
+        cliente.setCredenciales(credenciales);
+
         return userRepository.save(cliente);
     }
 }

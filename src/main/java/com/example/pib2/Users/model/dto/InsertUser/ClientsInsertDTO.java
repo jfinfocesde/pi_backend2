@@ -1,6 +1,5 @@
 package com.example.pib2.Users.model.dto.InsertUser;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -25,4 +24,7 @@ public class ClientsInsertDTO {
     private String numeroDocumento;
     private Boolean activo;
     private Date fechaNacimiento;
+
+    private String Email;
+    private String contraseña;
 }
