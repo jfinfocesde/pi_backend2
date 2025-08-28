@@ -1,6 +1,6 @@
-package com.example.pib2.Users.model.dto.InsertUser;
+package com.example.pib2.Users.model.dto.UpdateUser;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,16 +15,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ClientsInsertDTO {
+public class ClientUpdateDTO {
 
-    private Long idTipoCliente;//llave foranea
-    private Long IdTipoDocumento; //llave foranea
     private String nombreCompleto;
-    private String telefono;
     private String numeroDocumento;
-    private Boolean activo;
     private Date fechaNacimiento;
-
-    private String Email;
+    private String telefono;
     private String contrasena;
+    private String email;    
 }

@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +13,7 @@ import com.example.pib2.Users.model.Entity.TypeClient.TipoClientes;
 import com.example.pib2.Users.model.Entity.TypeDocument.TipoDocumento;
 import com.example.pib2.Users.model.Entity.User.Clientes;
 import com.example.pib2.Users.model.dto.InsertUser.ClientsInsertDTO;
+import com.example.pib2.Users.model.dto.UpdateUser.ClientUpdateDTO;
 import com.example.pib2.Users.model.dto.Users.ClientsDTO;
 import com.example.pib2.Users.repository.TypeClienteRepository.TypeClienteRepository;
 import com.example.pib2.Users.repository.TypeDocumentRepository.TypeDocumentRepository;
@@ -60,6 +58,8 @@ public class UserServiceImpl implements UserService {
                         ? cliente.getTipoDocumento().getIdTipoDocumento() : null)
                 .tipoDocumentoDescripcion(cliente.getTipoDocumento() != null
                         ? cliente.getTipoDocumento().getTipoDocumento() : null)
+                .Email(cliente.getCredenciales() != null
+                        ? cliente.getCredenciales().getEmail() : null)
                 .build()).collect(Collectors.toList());
     }
 //Metodo para insertar la información de un usuario
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         //Crear credenciales
         Credenciales credenciales = new Credenciales();
         credenciales.setEmail(clienteInsert.getEmail());
-        credenciales.setContrasena(new BCryptPasswordEncoder().encode(clienteInsert.getContraseña()));
+        credenciales.setContrasena(new BCryptPasswordEncoder().encode(clienteInsert.getContrasena()));
         credenciales.setFechaCreacion(LocalDateTime.now());
 
         credenciales.setCliente(cliente);
@@ -99,4 +99,45 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(cliente);
     }
+
+    //Metodo para Actualizar la información de un cliente
+    @Override
+    public Clientes updateClient(Long idCliente, ClientUpdateDTO clientUpdate) {
+        Clientes cliente = userRepository.findById(idCliente)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + idCliente));
+        cliente.setNombreCompleto(clientUpdate.getNombreCompleto());
+        cliente.setNumeroDocumento(clientUpdate.getNumeroDocumento());
+        cliente.setFechaNacimiento(clientUpdate.getFechaNacimiento());
+
+        if (clientUpdate.getNombreCompleto() != null) {
+            cliente.setNombreCompleto(clientUpdate.getNombreCompleto());
+        }
+
+        if (clientUpdate.getNumeroDocumento() != null) {
+            cliente.setNumeroDocumento(clientUpdate.getNumeroDocumento());
+        }
+
+        if (clientUpdate.getFechaNacimiento() != null) {
+            cliente.setFechaNacimiento(clientUpdate.getFechaNacimiento());
+        }
+
+        if(clientUpdate.getTelefono()!=null){
+            cliente.setTelefono(clientUpdate.getTelefono());
+        }
+
+        //Se valida que el campo de actualización no venga nulo
+        if (cliente.getCredenciales() != null) {
+            Credenciales credenciales = cliente.getCredenciales();
+
+            if (clientUpdate.getEmail() != null) {
+                credenciales.setEmail(clientUpdate.getEmail());
+            }
+
+            if (clientUpdate.getContrasena() != null) {
+                credenciales.setContrasena(new BCryptPasswordEncoder().encode(clientUpdate.getContrasena()));
+            }
+        }
+        return userRepository.save(cliente);
+    }
+
 }

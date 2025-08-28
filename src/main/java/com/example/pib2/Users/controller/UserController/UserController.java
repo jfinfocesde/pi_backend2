@@ -4,16 +4,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pib2.Users.model.Entity.User.Clientes;
 import com.example.pib2.Users.model.dto.InsertUser.ClientsInsertDTO;
+import com.example.pib2.Users.model.dto.UpdateUser.ClientUpdateDTO;
 import com.example.pib2.Users.model.dto.Users.ClientsDTO;
 import com.example.pib2.Users.service.ServiceUser.UserService;
 
@@ -41,4 +44,12 @@ public class UserController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Clientes> updateCliente(
+            @PathVariable Long id,
+            @RequestBody ClientUpdateDTO clientUpdate) {
+
+        Clientes actualizado = userService.updateClient(id, clientUpdate);
+        return ResponseEntity.ok(actualizado);
+    }
 }

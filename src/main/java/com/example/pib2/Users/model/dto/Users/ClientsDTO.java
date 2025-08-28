@@ -32,5 +32,7 @@ public class ClientsDTO {
     private Boolean activo;
     private Date fechaNacimiento;
 
+    private String Email;
+
     
 }
