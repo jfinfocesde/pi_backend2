@@ -27,7 +27,7 @@ public class TipoDocumento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdTipoDocumento;
 
-    @Column(nullable = false, unique = true)
+    @Column(name= "TipoDocumento", length=100, nullable=false)
     private String TipoDocumento;
 
     @OneToMany(mappedBy = "tipoDocumento", cascade = CascadeType.ALL, orphanRemoval = true)

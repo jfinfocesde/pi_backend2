@@ -1,6 +1,7 @@
 package com.example.pib2.Users.model.Entity.User;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.example.pib2.Users.model.Entity.Credentials.Credenciales;
 import com.example.pib2.Users.model.Entity.TypeClient.TipoClientes;
@@ -56,13 +57,13 @@ public class Clientes {
     private String telefono;
 
     @Column(name = "NumeroDocumento", nullable = false)
-    private Integer numeroDocumento;
-
+    private String numeroDocumento;
+    
     @Column(name = "Activo")
     private Boolean activo;
 
     @Column(name = "FechaNacimiento")
-    private LocalDateTime fechaNacimiento;
+    private Date fechaNacimiento;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private Credenciales credenciales;
