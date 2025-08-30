@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pib2.Users.model.Entity.User.Clientes;
@@ -33,7 +33,7 @@ public class UserController {
         return new ResponseEntity<>(Clients, HttpStatus.OK);
     }
 
-    @PostMapping("Post")
+    @PostMapping("POST")
     public ResponseEntity<Clientes> createNewClient(@RequestBody ClientsInsertDTO clienteInsert) {
         try {
             Clientes NewCliente = userService.createNewClient(clienteInsert);
@@ -44,12 +44,27 @@ public class UserController {
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("PUT/{id}")
     public ResponseEntity<Clientes> updateCliente(
             @PathVariable Long id,
             @RequestBody ClientUpdateDTO clientUpdate) {
 
         Clientes actualizado = userService.updateClient(id, clientUpdate);
         return ResponseEntity.ok(actualizado);
+    }
+
+    @PutMapping("PUT/{id}/activo")
+    public ResponseEntity<String> UpdateStatusCliente (@PathVariable("id") Long idCliente,
+        @RequestParam("activo") boolean activo) {
+        
+            boolean updateStatus = userService.UpdateStatusCliente(idCliente,activo);
+            if(updateStatus){
+                return ResponseEntity.ok("Estado actualizado correctamente.");
+        } else {
+            return ResponseEntity.badRequest().body("No se encontró el cliente.");
+        }
+            
+        
+        
     }
 }

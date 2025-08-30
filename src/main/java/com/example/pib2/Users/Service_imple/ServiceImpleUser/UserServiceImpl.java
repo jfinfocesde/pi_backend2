@@ -20,7 +20,9 @@ import com.example.pib2.Users.repository.TypeDocumentRepository.TypeDocumentRepo
 import com.example.pib2.Users.repository.UsersRepository.UserRepository;
 import com.example.pib2.Users.service.ServiceUser.UserService;
 
+
 @Service
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -138,6 +140,17 @@ public class UserServiceImpl implements UserService {
             }
         }
         return userRepository.save(cliente);
+    }
+    //Método para actualizar el estado de los clientes (Eliminado Lógico)
+    @Override
+   public Boolean UpdateStatusCliente(Long idCliente, Boolean activo) {
+    try {
+        int filas = userRepository.UpdateStatusCliente(idCliente, activo);
+        return filas > 0;
+    } catch (Exception e) {
+        System.err.println("Error al actualizar estado del cliente: " + e.getMessage());
+        return false;
+    }
     }
 
 }
