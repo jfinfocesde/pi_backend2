@@ -272,3 +272,4 @@ Desarrollado como proyecto educativo para aprender Spring Boot y desarrollo de A
 ---
 
 **¿Necesitas ayuda?** Consulta la [documentación completa](doc/README.md) o abre un issue en el repositorio.
+
