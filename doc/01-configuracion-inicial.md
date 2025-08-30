@@ -394,4 +394,4 @@ En la siguiente sección aprenderás a:
 
 ---
 
-[**← Volver al Índice**](README.md) | [**Siguiente: Configuración de Base de Datos →**](02-configuracion-database.md)
+[**← Anterior: Estructura del Proyecto**](00-estructura-proyecto.md) | [**Volver al Índice**](README.md) | [**Siguiente: Configuración de Base de Datos →**](02-configuracion-database.md)

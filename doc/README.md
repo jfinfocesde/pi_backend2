@@ -17,6 +17,12 @@ Al finalizar este tutorial, serás capaz de:
 
 ## 📋 Contenido del Tutorial
 
+### 0. [Estructura del Proyecto](00-estructura-proyecto.md)
+- Estructura de carpetas del proyecto Spring Boot
+- Organización de paquetes en Java
+- Convenciones de nomenclatura
+- Mejores prácticas de organización
+
 ### 1. [Configuración Inicial del Proyecto](01-configuracion-inicial.md)
 - Creación del proyecto Spring Boot
 - Estructura de directorios
