@@ -2,13 +2,13 @@ package com.example.pib2.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "siigo_api_users")
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class SiigoApiUser extends BaseEntity {
+public class SiigoApiUser {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +23,30 @@ public class SiigoApiUser extends BaseEntity {
     @Column(name = "siigo_api_app_type", nullable = false)
     private String appType;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+    
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updatedAt;
+    
     @Column(name = "user_id")
     private Long userId; // Referencia al usuario que hizo la petición
     
     @Column(name = "company_id")
     private Long companyId; // Referencia a la empresa
+    
+    
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+        updatedAt = new Date();
+    }
+    
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
 }

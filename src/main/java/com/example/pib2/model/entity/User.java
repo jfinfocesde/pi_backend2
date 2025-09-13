@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Data
-@EqualsAndHashCode(callSuper = true, exclude = {"roles", "refreshTokens", "authEvents", "auditLogs"})
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
     
     @Id
