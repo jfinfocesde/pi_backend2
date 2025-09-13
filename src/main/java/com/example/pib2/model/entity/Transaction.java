@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true, exclude = {"document", "warehouse"})
@@ -12,8 +13,7 @@ import lombok.EqualsAndHashCode;
 public class Transaction extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transaction_id", nullable = false, unique = true)
-    private Long id;
+    private Long transaction_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="document_id")
